@@ -5,7 +5,8 @@ Trello Power-Up to visualize the relationships between cards and the entire boar
 You need to create custom Power-Up for your own Trello workspace. 
 Follow this guide: 
 https://developer.atlassian.com/cloud/trello/guides/power-ups/managing-power-ups/
-- Specify any name and in the "iframe Connector URL" field specify the URL to GitHub pages of this repo (https://diralf.github.io/scope-picture/)
+- Specify any name and in the "iframe Connector URL" field specify the URL to GitHub pages of this repo 
+  - https://diralf.github.io/scope-picture/clients/trello/
 - Since custom Power-Up has been created, in the "Capabilities" tab, enable "card-buttons" option (at least for now).
 
 And you can add this power-up to your board.
@@ -15,4 +16,5 @@ And you can add this power-up to your board.
 That it! Power-Up added to the board and can be used
 
 ## Steps to check that Power-Up really works
-TBD
+1. Open any card
+2. Find "Hey, test button" in the Power-Ups section on the right
