@@ -1,0 +1,26 @@
+{
+  "name": "scope-picture",
+  "version": "0.0.0",
+  "description": "Trello Power-Up to visualize the relationships between cards and the entire board in nice pictures for a high-level overview of completed and remaining tasks.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webdriver:update": "webdriver-manager update",
+    "webdriver:start": "webdriver-manager start",
+    "e2e": "protractor clients/trello/e2e/protractor.conf.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Diralf/scope-picture.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Diralf/scope-picture/issues"
+  },
+  "homepage": "https://github.com/Diralf/scope-picture#readme",
+  "devDependencies": {
+    "jasmine2-protractor-utils": "^1.3.0",
+    "protractor": "^7.0.0"
+  }
+}
