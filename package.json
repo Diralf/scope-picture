@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "webdriver:update": "webdriver-manager update",
     "webdriver:start": "webdriver-manager start",
-    "e2e": "protractor clients/trello/e2e/protractor.conf.js"
+    "e2e": "protractor e2e/protractor.conf.js"
   },
   "repository": {
     "type": "git",
