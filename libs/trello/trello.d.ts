@@ -117,39 +117,104 @@ declare namespace Trello {
         }
     }
 
-    interface TrelloApi extends Alert.Api, Attach.Api, Authorize.Api, DataAccessor.Api, GetSet.Api {
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/managing-secrets/
+     */
+    declare namespace Secrets {
+        interface Api {
+            storeSecret: (key: string, data: string) => PromiseLike<void>;
+            loadSecret: (key: string) => PromiseLike<void>;
+            clearSecret: (key: string) => PromiseLike<void>;
+        }
+    }
+
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/localization/
+     */
+    declare namespace Localization {
+        // TODO finish localization by URl above
+        interface Api {
+            localizeKey: any;
+            localizeKeys: any;
+            localizeNode: any;
+        }
+    }
+
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-getcontext/
+     */
+    declare namespace Context {
+        interface Data {
+            // id of the current board
+            board: string,
+            // id of the current card (if there is one)
+            card: string,
+            // capability command, (if there is one)
+            command: Capabilities,
+            // id of the current member, "notLoggedIn" if no member is logged in
+            member: string | 'notLoggedIn',
+            // id of the Workspace the board is in (if its in one)
+            organization: string,
+            // id of the enterprise the board is in (if its in one)
+            enterprise: string,
+            // read or write permissions for current member per modelType
+            permissions: {
+                board: 'write' | 'read',
+                organization: 'write' | 'read',
+                card: 'write' | 'read'
+            }
+        }
+
+        interface Api {
+            getContext: () => Data;
+        }
+    }
+
+    interface TrelloApi extends
+        Alert.Api,
+        Attach.Api,
+        Authorize.Api,
+        DataAccessor.Api,
+        GetSet.Api,
+        Secrets.Api,
+        Localization.Api,
+        Context.Api
+    {
         InvalidContext: (message: string) => void;
         NotHandled: (message: string) => void;
         PluginDisabled: (message: string) => void;
-        arg: never;
+        /**
+         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-arg/
+         */
+        arg: (name: string, defaultValue: string) => string;
         args: never;
         /**
          * @deprecated
          */
         back: never;
         boardBar: any;
-        clearSecret: any;
         closeBoardBar: any;
         closeModal: any;
         closeOverlay: any;
         closePopup: any;
         command: any;
         confetti: any;
-        getContext: any;
         getRestApi: any;
         hide: any;
         hideAlert: () => void;
         hideBoardBar: any;
         hideCard: any;
         hideOverlay: any;
-        jwt: any;
-        loadSecret: any;
-        localizeKey: any;
-        localizeKeys: any;
-        localizeNode: any;
+        /**
+         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-jwt/
+         */
+        jwt: (options: { state: string }) => PromiseLike<string>;
         modal: any;
         navigate: any;
-        notifyParent: any;
+        /**
+         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-notifyparent/
+         */
+        notifyParent: (done: 'done') => PromiseLike<void>;
         overlay: any;
         popup: any;
         request: any;
@@ -158,18 +223,24 @@ declare namespace Trello {
         safe: any;
         secret: any;
         showCard: any;
-        signUrl: any;
+        /**
+         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-signurl/
+         */
+        signUrl: (url: string, args: Record<string, string>) => string;
         sizeTo: any;
         source: any;
-        storeSecret: any;
         updateModal: any;
     }
-    interface Context {
 
+    interface TrelloIframeApi extends TrelloApi {
+        /**
+         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-render/
+         */
+        render: (func: () => void) => void;
     }
 
     interface BaseCallbackOptions {
-        context: Context;
+        context: Context.Data;
         locale: string;
     }
 
