@@ -9,8 +9,122 @@ declare class TrelloPowerUp {
 }
 
 declare namespace Trello {
-    interface TrelloApi {
+    interface Alert {
+        message: string;
+        /**
+         * {"min": 5, "max": 30, "default": 5}
+         */
+        duration?: number;
+        display?: never;
+    }
 
+    interface Attachment {
+        name?: string;
+        url: string;
+    }
+
+    interface AuthorizeOptions {
+        height: number;
+        width: number;
+        validToken: (token: string) => boolean;
+        windowCallback: (authorizeWindow: Window) => void;
+    }
+
+    type TrelloDataAccessor<Options, Result = Options> = (
+        ...requestedFields: Array<keyof Options> | ['all']
+    ) => PromiseLike<Result>;
+
+    interface Board {
+        id;
+        name;
+        url;
+        shortLink;
+        members;
+        dateLastActivity;
+        idOrganization;
+        customFields;
+        labels;
+        memberships;
+    }
+
+    interface List {
+        id, name, cards;
+    }
+
+    interface Card {
+        id, name, desc, due, dueComplete, closed, cover, attachments, members, labels, url, shortLink, idList, idShort, dateLastActivity, badges, customFieldItems, coordinates, address, locationName, pos;
+    }
+
+    interface Member {
+        id, fullName, username, avatar: any | null, initials;
+    }
+
+    interface Organization {
+        id, name;
+    }
+
+    interface TrelloApi {
+        InvalidContext: (message: string) => void;
+        NotHandled: (message: string) => void;
+        PluginDisabled: (message: string) => void;
+        alert: (alert: Alert) => PromiseLike;
+        arg: never;
+        args: never;
+        attach: (attachment: Attachment) => PromiseLike;
+        authorize: (url: string, options: AuthorizeOptions) => PromiseLike<string>;
+        /**
+         * @deprecated
+         */
+        back: never;
+        board: TrelloDataAccessor<Board>;
+        boardBar: any;
+        card: TrelloDataAccessor<Card>;
+        cards: TrelloDataAccessor<Card, Card[]>;
+        clearSecret: any;
+        closeBoardBar: any;
+        closeModal: any;
+        closeOverlay: any;
+        closePopup: any;
+        command: any;
+        confetti: any;
+        get: any;
+        getAll: any;
+        getContext: any;
+        getRestApi: any;
+        hide: any;
+        hideAlert: () => void;
+        hideBoardBar: any;
+        hideCard: any;
+        hideOverlay: any;
+        isMemberSignedIn: () => boolean;
+        jwt: any;
+        list: TrelloDataAccessor<List>;
+        lists: TrelloDataAccessor<List, List[]>;
+        loadSecret: any;
+        localizeKey: any;
+        localizeKeys: any;
+        localizeNode: any;
+        member: TrelloDataAccessor<Member>;
+        memberCanWriteToModel: (model: 'board' | 'card' | 'organization') => boolean;
+        modal: any;
+        navigate: any;
+        notifyParent: any;
+        organization: TrelloDataAccessor<Organization>;
+        overlay: any;
+        popup: any;
+        remove: any;
+        request: any;
+        requestToken: any;
+        requestWithContext: any;
+        safe: any;
+        secret: any;
+        set: any;
+        showCard: any;
+        signUrl: any;
+        sizeTo: any;
+        source: any;
+        storeSecret: any;
+        updateModal: any;
     }
     interface Context {
 
