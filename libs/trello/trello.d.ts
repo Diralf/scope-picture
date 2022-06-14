@@ -9,45 +9,6 @@ declare class TrelloPowerUp {
 }
 
 declare namespace Trello {
-    declare namespace Alert {
-        interface Options {
-            message: string;
-            /**
-             * {"min": 5, "max": 30, "default": 5}
-             */
-            duration?: number;
-            display?: never;
-        }
-
-        interface Api {
-            alert: (options: Options) => PromiseLike;
-        }
-    }
-
-    declare namespace Attach {
-        interface Options {
-            name?: string;
-            url: string;
-        }
-
-        interface Api {
-            attach: (options: Options) => PromiseLike;
-        }
-    }
-
-    declare namespace Authorize {
-        interface Options {
-            height: number;
-            width: number;
-            validToken: (token: string) => boolean;
-            windowCallback: (authorizeWindow: Window) => void;
-        }
-
-        interface Api {
-            authorize: (url: string, options: Options) => PromiseLike<string>;
-        }
-    }
-
     /**
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/accessing-trello-data/
      */
@@ -141,6 +102,36 @@ declare namespace Trello {
     }
 
     /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-attach/
+     */
+    declare namespace Attach {
+        interface Options {
+            name?: string;
+            url: string;
+        }
+
+        interface Api {
+            attach: (options: Options) => PromiseLike;
+        }
+    }
+
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-authorize/
+     */
+    declare namespace Authorize {
+        interface Options {
+            height: number;
+            width: number;
+            validToken: (token: string) => boolean;
+            windowCallback: (authorizeWindow: Window) => void;
+        }
+
+        interface Api {
+            authorize: (url: string, options: Options) => PromiseLike<string>;
+        }
+    }
+
+    /**
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-getcontext/
      */
     declare namespace Context {
@@ -170,15 +161,62 @@ declare namespace Trello {
         }
     }
 
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/ui-functions/alert/
+     */
+    declare namespace Alert {
+        interface Options {
+            message: string;
+            /**
+             * {"min": 5, "max": 30, "default": 5}
+             */
+            duration?: number;
+            display?: never;
+        }
+
+        interface Api {
+            alert: (options: Options) => PromiseLike;
+        }
+    }
+
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/ui-functions/board-bar/
+     */
+    declare namespace BoardBar {
+        interface Action {
+            icon: string;
+            alt?: string;
+            callback?: (t: TrelloApi) => PromiseLike<void>;
+            position?: 'left' | 'right';
+            url?: `https://${string}`;
+        }
+        interface Options {
+            url: string;
+            args?: Record<string, string>;
+            height: number;
+            accentColor: string;
+            callback?: () => void;
+            title?: string;
+            actions?: Action[];
+            resizable?: boolean;
+        }
+
+        interface Api {
+            boardBar: (options: Options) => PromiseLike<void>;
+            closeBoardBar: () => PromiseLike<void>;
+        }
+    }
+
     interface TrelloApi extends
-        Alert.Api,
-        Attach.Api,
-        Authorize.Api,
         DataAccessor.Api,
         GetSet.Api,
         Secrets.Api,
         Localization.Api,
-        Context.Api
+        Attach.Api,
+        Authorize.Api,
+        Context.Api,
+        Alert.Api,
+        BoardBar.Api
     {
         InvalidContext: (message: string) => void;
         NotHandled: (message: string) => void;
@@ -192,8 +230,6 @@ declare namespace Trello {
          * @deprecated
          */
         back: never;
-        boardBar: any;
-        closeBoardBar: any;
         closeModal: any;
         closeOverlay: any;
         closePopup: any;
