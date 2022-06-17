@@ -63,18 +63,83 @@ declare namespace Trello {
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/getting-and-setting-data/
      */
     declare namespace GetSet {
-        type Id = string;
-        type Scope = Id | 'board' | 'card' | 'member' | 'organization';
+        type ScopeEntity = 'board' | 'card' | 'member' | 'organization';
+        // TODO verify this type
+        type Id = `${number}${string}`;
         type Visibility = 'shared' | 'private';
 
-        interface Api {
-            // TODO narrowing types
-            get: <Value>(scope: Scope, visibility: Visibility, key: string, defaultValue: Value) => PromiseLike<Value>
-                | (<Data>(scope: Scope, visibility: Visibility) => PromiseLike<Data>);
-            getAll: <AllData>() => AllData;
-            set: <Value>(scope: Scope, visibility: Visibility, key: string, value: Value) => PromiseLike<void>
-                | (<Data>(scope: Scope, visibility: Visibility, data: Data) => PromiseLike<void>);
-            remove: (scope: Scope, visibility: Visibility, key: string | string[]) => PromiseLike<void>;
+        type VisibilityStore = Partial<Record<Visibility, Record<string, unknown>>>;
+        type Store = Partial<Record<ScopeEntity, VisibilityStore>>;
+
+        interface Api<S extends Store> {
+            get<
+                SKey extends Id,
+                VKey extends keyof S['card']
+                >(scope: SKey, visibility: VKey): PromiseLike<S['card'][VKey]>
+            get<
+                SKey extends Id,
+                VKey extends keyof S['card'],
+                Key extends keyof S['card'][VKey],
+                Value extends S['card'][VKey][Key]
+                >(scope: SKey, visibility: VKey, key: Key, defaultValue: Value): PromiseLike<Value>
+            get<
+                SKey extends keyof S,
+                VKey extends keyof S[SKey]
+                >(scope: SKey, visibility: VKey): PromiseLike<S[SKey][VKey]>
+            get<
+                SKey extends keyof S,
+                VKey extends keyof S[SKey],
+                Key extends keyof S[SKey][VKey],
+                Value extends S[SKey][VKey][Key]
+                >(scope: SKey, visibility: VKey, key: Key, defaultValue?: Value): PromiseLike<Value>
+            get<
+                SKey extends keyof S,
+                VKey extends keyof S[SKey],
+                Key extends keyof S[SKey][VKey],
+                Value extends S[SKey][VKey][Key]
+                >(scope: SKey, visibility: VKey, key?: Key, defaultValue?: Value): PromiseLike<Value | S[SKey][VKey]>;
+
+            getAll: () => PromiseLike<CustomStore>;
+
+            set<
+                SKey extends Id,
+                VKey extends keyof S['card'],
+                Key extends keyof S['card'][VKey],
+                Value extends S['card'][VKey][Key]
+                >(scope: SKey, visibility: VKey, key: Key, value: Value): PromiseLike<void>;
+            set<
+                SKey extends Id,
+                VKey extends keyof S['card'],
+                Key extends keyof S['card'][VKey]
+                >(scope: SKey, visibility: VKey, obj: Partial<S['card'][VKey]>): PromiseLike<void>;
+            set<
+                SKey extends keyof S,
+                VKey extends keyof S[SKey],
+                Key extends keyof S[SKey][VKey],
+                Value extends S[SKey][VKey][Key]
+                >(scope: SKey, visibility: VKey, key: Key, value: Value): PromiseLike<void>;
+            set<
+                SKey extends keyof S,
+                VKey extends keyof S[SKey],
+                Key extends keyof S[SKey][VKey]
+                >(scope: SKey, visibility: VKey, obj: Partial<S[SKey][VKey]>): PromiseLike<void>;
+            set<
+                SKey extends keyof S,
+                VKey extends keyof S[SKey],
+                Key extends keyof S[SKey][VKey],
+                Value extends S[SKey][VKey][Key]
+                >(scope: SKey, visibility: VKey, key: Key | Partial<S[SKey][VKey]>, value?: Value): PromiseLike<void>;
+
+            remove<
+                SKey extends Id,
+                VKey extends keyof S['card'],
+                Key extends keyof S['card'][VKey]
+                >(scope: SKey, visibility: VKey, key: Key | Key[]): PromiseLike<void>;
+            remove<
+                SKey extends keyof S,
+                VKey extends keyof S[SKey],
+                Key extends keyof S[SKey][VKey]
+                >(scope: SKey, visibility: VKey, key: Key | Key[]): PromiseLike<void>;
         }
     }
 
