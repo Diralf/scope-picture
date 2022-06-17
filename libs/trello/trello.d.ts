@@ -251,7 +251,7 @@ declare namespace Trello {
         interface Action {
             icon: string;
             alt?: string;
-            callback?: (t: TrelloApi) => PromiseLike<void>;
+            callback?: BaseCallback;
             position?: 'left' | 'right';
             url?: `https://${string}`;
         }
@@ -260,7 +260,7 @@ declare namespace Trello {
             args?: Record<string, string>;
             height: number;
             accentColor: string;
-            callback?: () => void;
+            callback?: BaseCallback;
             title?: string;
             actions?: Action[];
             resizable?: boolean;
@@ -269,6 +269,87 @@ declare namespace Trello {
         interface Api {
             boardBar: (options: Options) => PromiseLike<void>;
             closeBoardBar: () => PromiseLike<void>;
+        }
+    }
+
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/ui-functions/modal/
+     */
+    declare namespace Modal {
+        interface Action {
+            icon: string;
+            alt?: string;
+            callback?: BaseCallback;
+            position?: 'left' | 'right';
+            url?: `https://${string}`;
+        }
+
+        interface ModalOptions {
+            url: string;
+            accentColor: string;
+            height: number;
+            fullscreen: boolean;
+            callback?: BaseCallback;
+            title?: string;
+            actions?: Action[];
+            args?: Record<string, string>;
+        }
+
+        type UpdateModalOptions = Pick<ModalOptions, 'accentColor' | 'actions' | 'fullscreen' | 'title'>
+
+        interface Api {
+            modal: (options: ModalOptions) => PromiseLike<void>;
+            closeModal: () => PromiseLike<void>;
+            updateModal: (options: UpdateModalOptions) => PromiseLike<void>;
+        }
+    }
+
+    declare namespace Navigation {
+        interface Api {
+            navigate: (options: { url: string }) => PromiseLike<void>;
+            showCard: (cardId: string) => PromiseLike<void>;
+            hideCard: () => PromiseLike<void>;
+        }
+    }
+
+    declare namespace Popup {
+        interface PopupCallbackItem {
+            text: string;
+            callback: BaseCallback;
+            url?: string;
+            alwaysVisible: boolean;
+        }
+        interface PopupUrlItem {
+            text: string;
+            callback?: BaseCallback;
+            url: string;
+            alwaysVisible: boolean;
+        }
+        type PopupItem = PopupCallbackItem | PopupUrlItem;
+
+        interface PopupListOptions {
+            title: string;
+            items: PopupItem[];
+        }
+
+        interface PopupSearchObjectOptions {
+            count?: number;
+            placeholder?: string;
+            empty?: string;
+            searching?: string;
+            debounce?: number;
+        }
+        interface PopupSearchOptions {
+            title: string;
+            items: PopupItem[] | BaseCallback<PromiseLike<PopupItem[]>>;
+            search: PopupSearchObjectOptions;
+        }
+
+        // TODO cover Popup fully
+
+        interface Api {
+            popup: (options: PopupListOptions | PopupSearchOptions) => PromiseLike<void>;
+            closePopup: any;
         }
     }
 
@@ -281,7 +362,10 @@ declare namespace Trello {
         Authorize.Api,
         Context.Api,
         Alert.Api,
-        BoardBar.Api
+        BoardBar.Api,
+        Modal.Api,
+        Navigation.Api,
+        Popup.Api
     {
         InvalidContext: (message: string) => void;
         NotHandled: (message: string) => void;
@@ -295,42 +379,34 @@ declare namespace Trello {
          * @deprecated
          */
         back: never;
-        closeModal: any;
         closeOverlay: any;
-        closePopup: any;
         command: any;
         confetti: any;
         getRestApi: any;
         hide: any;
         hideAlert: () => void;
         hideBoardBar: any;
-        hideCard: any;
         hideOverlay: any;
         /**
          * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-jwt/
          */
         jwt: (options: { state: string }) => PromiseLike<string>;
-        modal: any;
-        navigate: any;
         /**
          * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-notifyparent/
          */
         notifyParent: (done: 'done') => PromiseLike<void>;
         overlay: any;
-        popup: any;
         request: any;
         requestToken: any;
         requestWithContext: any;
         safe: any;
         secret: any;
-        showCard: any;
         /**
          * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-signurl/
          */
         signUrl: (url: string, args: Record<string, string>) => string;
         sizeTo: any;
         source: any;
-        updateModal: any;
     }
 
     interface TrelloIframeApi extends TrelloApi {
