@@ -358,10 +358,25 @@ declare namespace Trello {
             }
         }
 
+        declare namespace PopupDateTime {
+            interface CallbackOptions extends BaseCallbackOptions {
+                date: string;
+            }
+
+            interface Options {
+                type: 'date' | 'datetime',
+                title: string;
+                callback: BaseCallback<void, CallbackOptions>,
+                date?: Date,
+                minDate?: Date,
+                maxDate?: Date,
+            }
+        }
+
         // TODO cover Popup fully
 
         interface Api {
-            popup: (options: PopupList.Options | PopupSearch.Options | PopupIframe.Options) => PromiseLike<void>;
+            popup: (options: PopupList.Options | PopupSearch.Options | PopupIframe.Options | PopupDateTime.Options) => PromiseLike<void>;
             closePopup: any;
         }
     }
@@ -434,7 +449,7 @@ declare namespace Trello {
         locale: string;
     }
 
-    type BaseCallback = <Result = void>(t: TrelloApi, options: BaseCallbackOptions) => Result;
+    type BaseCallback = <Result = void, Options extends BaseCallbackOptions = BaseCallbackOptions>(t: TrelloApi, options: Options) => Result;
     type Conditions = 'admin' | 'edit' | 'readOnly' | 'signedIn' | 'signedOut' | 'always';
 
     type Capabilities = 'attachment-sections'
