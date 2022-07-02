@@ -454,6 +454,14 @@ declare namespace Trello {
         }
     }
 
+    declare namespace Utils {
+        interface Api {
+            safe: (unsafeValue: string) => string;
+            // TODO check type of this field
+            Promise: Promise;
+        }
+    }
+
     interface TrelloApi extends
         DataAccessor.Api,
         GetSet.Api,
@@ -471,7 +479,8 @@ declare namespace Trello {
         Modal.Api,
         Navigation.Api,
         Popup.Api,
-        SizeTo.Api
+        SizeTo.Api,
+        Utils.Api
     {
         InvalidContext: (message: string) => void;
         NotHandled: (message: string) => void;
@@ -492,7 +501,6 @@ declare namespace Trello {
         request: any;
         requestToken: any;
         requestWithContext: any;
-        safe: any;
         secret: any;
         source: any;
     }
