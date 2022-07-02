@@ -9,6 +9,14 @@ declare class TrelloPowerUp {
 }
 
 declare namespace Trello {
+    declare namespace ErrorHandlers {
+        interface Api {
+            InvalidContext: (message: string) => void;
+            NotHandled: (message: string) => void;
+            PluginDisabled: (message: string) => void;
+        }
+    }
+
     /**
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/accessing-trello-data/
      */
@@ -441,7 +449,7 @@ declare namespace Trello {
                 | PopupDateTime.Options
                 | PopupConfirm.Options
             ) => PromiseLike<void>;
-            closePopup: any;
+            closePopup: () => PromiseLike<void>;
         }
     }
 
@@ -477,6 +485,7 @@ declare namespace Trello {
     }
 
     interface TrelloApi extends
+        ErrorHandlers.Api,
         DataAccessor.Api,
         GetSet.Api,
         Secrets.Api,
@@ -496,9 +505,6 @@ declare namespace Trello {
         SizeTo.Api,
         Utils.Api
     {
-        InvalidContext: (message: string) => void;
-        NotHandled: (message: string) => void;
-        PluginDisabled: (message: string) => void;
         args: never;
         /**
          * @deprecated
@@ -550,6 +556,7 @@ declare namespace Trello {
         | 'show-authorization'
         | 'show-settings';
 
+    // TODO specify type
     type InitializeOptions = any;
 
     interface CardButton {
@@ -561,6 +568,7 @@ declare namespace Trello {
         target?: string;
     }
 
+    // TODO specify type
     interface CapabilityHandlers {
         'attachment-sections': any;
         'attachment-thumbnail': any;
