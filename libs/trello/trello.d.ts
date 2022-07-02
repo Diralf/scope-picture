@@ -366,17 +366,34 @@ declare namespace Trello {
             interface Options {
                 type: 'date' | 'datetime',
                 title: string;
-                callback: BaseCallback<void, CallbackOptions>,
-                date?: Date,
-                minDate?: Date,
-                maxDate?: Date,
+                callback: BaseCallback<void, CallbackOptions>;
+                date?: Date;
+                minDate?: Date;
+                maxDate?: Date;
             }
         }
 
-        // TODO cover Popup fully
+        declare namespace PopupConfirm {
+            interface Options {
+                type: 'confirm';
+                title: string;
+                message: string;
+                confirmText: string;
+                onConfirm: BaseCallback;
+                confirmStyle?: 'primary' | 'danger';
+                cancelText?: string;
+                onCancel: BaseCallback;
+            }
+        }
 
         interface Api {
-            popup: (options: PopupList.Options | PopupSearch.Options | PopupIframe.Options | PopupDateTime.Options) => PromiseLike<void>;
+            popup: (
+                options: PopupList.Options
+                | PopupSearch.Options
+                | PopupIframe.Options
+                | PopupDateTime.Options
+                | PopupConfirm.Options
+            ) => PromiseLike<void>;
             closePopup: any;
         }
     }
