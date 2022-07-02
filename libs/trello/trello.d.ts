@@ -518,6 +518,14 @@ declare namespace Trello {
              * @deprecated
              */
             hideOverlay: never;
+            /**
+             * @deprecated
+             */
+            hide: never;
+            /**
+             * @deprecated
+             */
+            overlay: never;
         }
     }
 
@@ -546,8 +554,6 @@ declare namespace Trello {
     {
         command: string;
         getRestApi: any;
-        hide: any;
-        overlay: any;
         request: any;
         requestToken: any;
         requestWithContext: any;
