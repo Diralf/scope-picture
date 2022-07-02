@@ -237,6 +237,16 @@ declare namespace Trello {
     }
 
     /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-jwt/
+     */
+    declare namespace Jwt {
+        interface Api {
+            jwt: (options: { state: string }) => PromiseLike<string>;
+        }
+    }
+
+
+    /**
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/ui-functions/alert/
      */
     declare namespace Alert {
@@ -427,6 +437,7 @@ declare namespace Trello {
         Attach.Api,
         Authorize.Api,
         Context.Api,
+        Jwt.Api,
         Alert.Api,
         BoardBar.Api,
         Modal.Api,
@@ -449,10 +460,6 @@ declare namespace Trello {
         hide: any;
         hideBoardBar: any;
         hideOverlay: any;
-        /**
-         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-jwt/
-         */
-        jwt: (options: { state: string }) => PromiseLike<string>;
         /**
          * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-notifyparent/
          */
