@@ -255,6 +255,24 @@ declare namespace Trello {
     }
 
     /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-render/
+     */
+    declare namespace Render {
+        interface Api {
+            render: (func: () => void) => void;
+        }
+    }
+
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-signurl/
+     */
+    declare namespace SignUrl {
+        interface Api {
+            signUrl: (url: string, args: Record<string, string>) => string;
+        }
+    }
+
+    /**
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/ui-functions/alert/
      */
     declare namespace Alert {
@@ -447,6 +465,7 @@ declare namespace Trello {
         Context.Api,
         Jwt.Api,
         NotifyParent.Api,
+        SignUrl.Api,
         Alert.Api,
         BoardBar.Api,
         Modal.Api,
@@ -475,18 +494,11 @@ declare namespace Trello {
         requestWithContext: any;
         safe: any;
         secret: any;
-        /**
-         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-signurl/
-         */
-        signUrl: (url: string, args: Record<string, string>) => string;
         source: any;
     }
 
-    interface TrelloIframeApi extends TrelloApi {
-        /**
-         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-render/
-         */
-        render: (func: () => void) => void;
+    interface TrelloIframeApi extends TrelloApi, Render.Api {
+
     }
 
     interface BaseCallbackOptions {
