@@ -168,6 +168,15 @@ declare namespace Trello {
     }
 
     /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-arg/
+     */
+    declare namespace Arg {
+        interface Api {
+            arg: (name: string, defaultValue: string) => string;
+        }
+    }
+
+    /**
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-attach/
      */
     declare namespace Attach {
@@ -414,6 +423,7 @@ declare namespace Trello {
         GetSet.Api,
         Secrets.Api,
         Localization.Api,
+        Arg.Api,
         Attach.Api,
         Authorize.Api,
         Context.Api,
@@ -427,10 +437,6 @@ declare namespace Trello {
         InvalidContext: (message: string) => void;
         NotHandled: (message: string) => void;
         PluginDisabled: (message: string) => void;
-        /**
-         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-arg/
-         */
-        arg: (name: string, defaultValue: string) => string;
         args: never;
         /**
          * @deprecated
