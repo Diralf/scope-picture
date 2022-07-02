@@ -487,6 +487,19 @@ declare namespace Trello {
         }
     }
 
+    // TODO check in runtime
+    declare namespace Confetti {
+        interface Options {
+            clientX: number;
+            clientY: number;
+            target: HTMLElement;
+        }
+
+        interface Api {
+            confetti: (options: Options) => PromiseLike<void>;
+        }
+    }
+
     declare namespace Deprecated {
         interface Api {
             /**
@@ -528,10 +541,10 @@ declare namespace Trello {
         Popup.Api,
         SizeTo.Api,
         Utils.Api,
+        Confetti.Api,
         Deprecated.Api
     {
         command: string;
-        confetti: any;
         getRestApi: any;
         hide: any;
         overlay: any;
