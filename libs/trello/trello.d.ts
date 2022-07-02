@@ -245,6 +245,14 @@ declare namespace Trello {
         }
     }
 
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-notifyparent/
+     */
+    declare namespace NotifyParent {
+        interface Api {
+            notifyParent: (done: 'done') => PromiseLike<void>;
+        }
+    }
 
     /**
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/ui-functions/alert/
@@ -438,6 +446,7 @@ declare namespace Trello {
         Authorize.Api,
         Context.Api,
         Jwt.Api,
+        NotifyParent.Api,
         Alert.Api,
         BoardBar.Api,
         Modal.Api,
@@ -460,10 +469,6 @@ declare namespace Trello {
         hide: any;
         hideBoardBar: any;
         hideOverlay: any;
-        /**
-         * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-notifyparent/
-         */
-        notifyParent: (done: 'done') => PromiseLike<void>;
         overlay: any;
         request: any;
         requestToken: any;
