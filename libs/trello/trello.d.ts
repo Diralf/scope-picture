@@ -17,6 +17,7 @@ declare namespace Trello {
             ...requestedFields: Array<keyof Options> | ['all']
         ) => PromiseLike<Result>;
 
+        // TODO fill the types
         interface Board {
             id;
             name;
