@@ -313,20 +313,6 @@ declare namespace Trello {
     }
 
     declare namespace Popup {
-        interface PopupCallbackItem {
-            text: string;
-            callback: BaseCallback;
-            url?: string;
-            alwaysVisible: boolean;
-        }
-        interface PopupUrlItem {
-            text: string;
-            callback?: BaseCallback;
-            url: string;
-            alwaysVisible: boolean;
-        }
-        type PopupItem = PopupCallbackItem | PopupUrlItem;
-
         declare namespace PopupList {
             // TODO check for "url" field
             interface Item {
@@ -341,6 +327,13 @@ declare namespace Trello {
         }
 
         declare namespace PopupSearch {
+            interface Item {
+                text: string;
+                callback?: BaseCallback;
+                url?: string;
+                alwaysVisible?: boolean;
+            }
+
             interface SearchOptions {
                 count?: number;
                 placeholder?: string;
@@ -348,9 +341,10 @@ declare namespace Trello {
                 searching?: string;
                 debounce?: number;
             }
+
             interface Options {
                 title: string;
-                items: PopupItem[] | BaseCallback<PromiseLike<PopupItem[]>>;
+                items: Item[] | BaseCallback<PromiseLike<Item[]>>;
                 search: SearchOptions;
             }
         }
