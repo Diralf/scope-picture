@@ -455,10 +455,20 @@ declare namespace Trello {
     }
 
     declare namespace Utils {
+        // TODO list the available colors
+        type Color = string;
+        interface BrandColors {
+            getHexString: (colorName: Color, weight?: number) => string;
+            namedColorStringToHex: (color: Color | `${Color}#${string}`) => string;
+        }
+
         interface Api {
             safe: (unsafeValue: string) => string;
             // TODO check type of this field
             Promise: Promise;
+            util: {
+                colors: BrandColors;
+            }
         }
     }
 
