@@ -241,6 +241,7 @@ declare namespace Trello {
 
         interface Api {
             alert: (options: Options) => PromiseLike;
+            hideAlert: () => void;
         }
     }
 
@@ -439,7 +440,6 @@ declare namespace Trello {
         confetti: any;
         getRestApi: any;
         hide: any;
-        hideAlert: () => void;
         hideBoardBar: any;
         hideOverlay: any;
         /**
