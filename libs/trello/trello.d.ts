@@ -328,9 +328,15 @@ declare namespace Trello {
         type PopupItem = PopupCallbackItem | PopupUrlItem;
 
         declare namespace PopupList {
+            // TODO check for "url" field
+            interface Item {
+                text: string;
+                callback?: BaseCallback;
+            }
+
             interface Options {
                 title: string;
-                items: PopupItem[];
+                items: Item[];
             }
         }
 
