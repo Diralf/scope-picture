@@ -327,28 +327,32 @@ declare namespace Trello {
         }
         type PopupItem = PopupCallbackItem | PopupUrlItem;
 
-        interface PopupListOptions {
-            title: string;
-            items: PopupItem[];
+        declare namespace PopupList {
+            interface Options {
+                title: string;
+                items: PopupItem[];
+            }
         }
 
-        interface PopupSearchObjectOptions {
-            count?: number;
-            placeholder?: string;
-            empty?: string;
-            searching?: string;
-            debounce?: number;
-        }
-        interface PopupSearchOptions {
-            title: string;
-            items: PopupItem[] | BaseCallback<PromiseLike<PopupItem[]>>;
-            search: PopupSearchObjectOptions;
+        declare namespace PopupSearch {
+            interface SearchOptions {
+                count?: number;
+                placeholder?: string;
+                empty?: string;
+                searching?: string;
+                debounce?: number;
+            }
+            interface Options {
+                title: string;
+                items: PopupItem[] | BaseCallback<PromiseLike<PopupItem[]>>;
+                search: SearchOptions;
+            }
         }
 
         // TODO cover Popup fully
 
         interface Api {
-            popup: (options: PopupListOptions | PopupSearchOptions) => PromiseLike<void>;
+            popup: (options: PopupList.Options | PopupSearch.Options) => PromiseLike<void>;
             closePopup: any;
         }
     }
