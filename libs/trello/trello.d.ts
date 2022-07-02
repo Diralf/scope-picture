@@ -349,10 +349,19 @@ declare namespace Trello {
             }
         }
 
+        declare namespace PopupIframe {
+            interface Options {
+                title: string;
+                url: string;
+                args: Record<string, string>;
+                height: number;
+            }
+        }
+
         // TODO cover Popup fully
 
         interface Api {
-            popup: (options: PopupList.Options | PopupSearch.Options) => PromiseLike<void>;
+            popup: (options: PopupList.Options | PopupSearch.Options | PopupIframe.Options) => PromiseLike<void>;
             closePopup: any;
         }
     }
