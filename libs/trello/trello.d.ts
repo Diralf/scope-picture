@@ -181,6 +181,7 @@ declare namespace Trello {
     declare namespace Arg {
         interface Api {
             arg: (name: string, defaultValue: string) => string;
+            args: [BaseCallbackOptions]
         }
     }
 
@@ -237,6 +238,8 @@ declare namespace Trello {
                 organization: 'write' | 'read',
                 card: 'write' | 'read'
             }
+            plugin: string;
+            version: string;
         }
 
         interface Api {
@@ -484,6 +487,27 @@ declare namespace Trello {
         }
     }
 
+    declare namespace Deprecated {
+        interface Api {
+            /**
+             * @deprecated
+             */
+            back: never;
+            /**
+             * @deprecated
+             */
+            closeOverlay: never;
+            /**
+             * @deprecated
+             */
+            hideBoardBar: never;
+            /**
+             * @deprecated
+             */
+            hideOverlay: never;
+        }
+    }
+
     interface TrelloApi extends
         ErrorHandlers.Api,
         DataAccessor.Api,
@@ -503,20 +527,13 @@ declare namespace Trello {
         Navigation.Api,
         Popup.Api,
         SizeTo.Api,
-        Utils.Api
+        Utils.Api,
+        Deprecated.Api
     {
-        args: never;
-        /**
-         * @deprecated
-         */
-        back: never;
-        closeOverlay: any;
-        command: any;
+        command: string;
         confetti: any;
         getRestApi: any;
         hide: any;
-        hideBoardBar: any;
-        hideOverlay: any;
         overlay: any;
         request: any;
         requestToken: any;
