@@ -398,6 +398,15 @@ declare namespace Trello {
         }
     }
 
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/ui-functions/t-sizeto/
+     */
+    declare namespace SizeTo {
+        interface Api {
+            sizeTo: (arg: string | HTMLElement | number) => PromiseLike<void>;
+        }
+    }
+
     interface TrelloApi extends
         DataAccessor.Api,
         GetSet.Api,
@@ -410,7 +419,8 @@ declare namespace Trello {
         BoardBar.Api,
         Modal.Api,
         Navigation.Api,
-        Popup.Api
+        Popup.Api,
+        SizeTo.Api
     {
         InvalidContext: (message: string) => void;
         NotHandled: (message: string) => void;
@@ -450,7 +460,6 @@ declare namespace Trello {
          * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/t-signurl/
          */
         signUrl: (url: string, args: Record<string, string>) => string;
-        sizeTo: any;
         source: any;
     }
 
