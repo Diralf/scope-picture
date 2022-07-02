@@ -454,6 +454,9 @@ declare namespace Trello {
         }
     }
 
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/utils-and-helpers/
+     */
     declare namespace Utils {
         // TODO list the available colors
         type Color = string;
@@ -468,6 +471,7 @@ declare namespace Trello {
             Promise: Promise;
             util: {
                 colors: BrandColors;
+                relativeUrl: (url: string) => string;
             }
         }
     }
