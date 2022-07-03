@@ -500,6 +500,44 @@ declare namespace Trello {
         }
     }
 
+    declare namespace Request {
+        type Command = 'data'
+            | 'set'
+            | 'navigate'
+            | 'showCard'
+            | 'hideCard'
+            | 'alert'
+            | 'hideAlert'
+            | 'popup'
+            | 'overlay'
+            | 'board-bar'
+            | 'modal'
+            | 'update-modal'
+            | 'close-popup'
+            | 'pop-popup'
+            | 'close-overlay'
+            | 'close-board-bar'
+            | 'close-modal'
+            | 'resize'
+            | 'card'
+            | 'cards'
+            | 'list'
+            | 'lists'
+            | 'member'
+            | 'board'
+            | 'organization'
+            | 'attach-to-card'
+            | 'request-token'
+            | 'confetti'
+            | 'jwt';
+
+        interface Api {
+            request: <Result>(command: Command, result: Result) => PromiseLike<void>;
+            requestToken: (options: BaseCallbackOptions) => PromiseLike<void>;
+            requestWithContext: <Options, Result>(command: Command, options?: Options) => PromiseLike<Result>;
+        }
+    }
+
     declare namespace Deprecated {
         interface Api {
             /**
@@ -550,13 +588,11 @@ declare namespace Trello {
         SizeTo.Api,
         Utils.Api,
         Confetti.Api,
+        Request.Api,
         Deprecated.Api
     {
         command: string;
         getRestApi: any;
-        request: any;
-        requestToken: any;
-        requestWithContext: any;
         secret: any;
         source: any;
     }
