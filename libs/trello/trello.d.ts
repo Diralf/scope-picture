@@ -8,6 +8,8 @@ declare class TrelloPowerUp {
     static initialize(handlers: Trello.CapabilityHandlers, options?: Trello.InitializeOptions): void;
     static iframe(options?: Trello.InitializeOptions): Trello.TrelloIframeApi;
     static restApiError: Trello.RestApiClient.RestApiError;
+    static utils: Trello.Utils.Static;
+    static Promise: Promise;
 }
 
 declare namespace Trello {
@@ -512,12 +514,11 @@ declare namespace Trello {
 
         interface Api {
             safe: (unsafeValue: string) => string;
-            // TODO check type of this field
-            Promise: Promise;
-            util: {
-                colors: BrandColors;
-                relativeUrl: (url: string) => string;
-            }
+        }
+
+        interface Static {
+            colors: BrandColors;
+            relativeUrl: (url: string) => string;
         }
     }
 
