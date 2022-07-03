@@ -7,6 +7,7 @@ declare global {
 declare class TrelloPowerUp {
     static initialize(handlers: Trello.CapabilityHandlers, options?: Trello.InitializeOptions): void;
     static iframe(options?: Trello.InitializeOptions): Trello.TrelloIframeApi;
+    static restApiError: Trello.RestApiClient.RestApiError;
 }
 
 declare namespace Trello {
@@ -288,11 +289,28 @@ declare namespace Trello {
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/rest-api-client/
      */
     declare namespace RestApiClient {
-        interface Client {
+        declare namespace Authorize {
+            type Scope = 'read' | 'write' | 'account';
+            interface Options {
+                expiration?: '1hour' | '1day' | '30days' | 'never';
+                scope?: Scope | `${Scope},${Scope}` | `${Scope},${Scope},${Scope}`;
+                return_url?: string;
+            }
+
+            interface Client {
+                authorize: (options: Options) => PromiseLike<string>;
+            }
+        }
+
+        interface Client extends Authorize.Client {
         }
 
         interface Api {
             getRestApi: () => Client;
+        }
+
+        interface RestApiError {
+            AuthDeniedError: Error;
         }
     }
 
