@@ -593,8 +593,8 @@ declare namespace Trello {
     {
         command: string;
         getRestApi: any;
-        secret: any;
-        source: any;
+        secret: string;
+        source: Window;
     }
 
     interface TrelloIframeApi extends TrelloApi, Render.Api {
