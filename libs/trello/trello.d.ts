@@ -6,6 +6,7 @@ declare global {
 
 declare class TrelloPowerUp {
     static initialize(handlers: Trello.CapabilityHandlers, options?: Trello.InitializeOptions): void;
+    static iframe(options?: Trello.InitializeOptions): Trello.TrelloIframeApi;
 }
 
 declare namespace Trello {
@@ -280,6 +281,18 @@ declare namespace Trello {
     declare namespace SignUrl {
         interface Api {
             signUrl: (url: string, args: Record<string, string>) => string;
+        }
+    }
+
+    /**
+     * docs: https://developer.atlassian.com/cloud/trello/power-ups/rest-api-client/
+     */
+    declare namespace RestApiClient {
+        interface Client {
+        }
+
+        interface Api {
+            getRestApi: () => Client;
         }
     }
 
@@ -580,6 +593,7 @@ declare namespace Trello {
         Jwt.Api,
         NotifyParent.Api,
         SignUrl.Api,
+        RestApiClient.Api,
         Alert.Api,
         BoardBar.Api,
         Modal.Api,
@@ -592,7 +606,6 @@ declare namespace Trello {
         Deprecated.Api
     {
         command: string;
-        getRestApi: any;
         secret: string;
         source: Window;
     }
@@ -629,7 +642,10 @@ declare namespace Trello {
         | 'show-settings';
 
     // TODO specify type
-    type InitializeOptions = any;
+    type InitializeOptions = {
+        appKey: string;
+        appName: string;
+    };
 
     interface CardButton {
         icon: string;
