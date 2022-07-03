@@ -305,6 +305,7 @@ declare namespace Trello {
         interface Client extends Authorize.Client {
             getToken: () => PromiseLike<string | null>;
             isAuthorized: () => PromiseLike<boolean>;
+            clearToken: () => PromiseLike<void>;
         }
 
         interface Api {
