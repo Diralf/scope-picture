@@ -734,16 +734,26 @@ declare namespace Trello {
         }
 
         interface Api {
-            'attachment-thumbnail': PromiseLike<Result, Options>;
+            'attachment-thumbnail': PromiseCallback<Result, Options>;
+        }
+    }
+
+    declare namespace AuthorizationStatus {
+        interface Result {
+            authorized: boolean;
+        }
+
+        interface Api {
+            'authorization-status': PromiseCallback<Result>;
         }
     }
 
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
-        AttachmentThumbnail.Api
+        AttachmentThumbnail.Api,
+        AuthorizationStatus.Api
     {
-        'authorization-status': any;
         'board-buttons': any;
         'card-back-section': any;
         'card-badges': any;
