@@ -5,7 +5,7 @@ declare global {
 }
 
 declare class TrelloPowerUp {
-    static initialize(handlers: Trello.CapabilityHandlers, options?: Trello.InitializeOptions): void;
+    static initialize(handlers: Partial<Trello.CapabilityHandlers>, options?: Trello.InitializeOptions): void;
     static iframe(options?: Trello.InitializeOptions): Trello.TrelloIframeApi;
     static restApiError: Trello.RestApiClient.RestApiError;
     static utils: Trello.Utils.Static;
@@ -642,6 +642,7 @@ declare namespace Trello {
     }
 
     type BaseCallback = <Result = void, Options extends BaseCallbackOptions = BaseCallbackOptions>(t: TrelloApi, options: Options) => Result;
+    type PromiseCallback<Result = void, Options extends BaseCallbackOptions = BaseCallbackOptions> = BaseCallback<Result | PromiseLike<Result>, Options>;
     type Conditions = 'admin' | 'edit' | 'readOnly' | 'signedIn' | 'signedOut' | 'always';
 
     type Capabilities = 'attachment-sections'
@@ -678,9 +679,42 @@ declare namespace Trello {
         target?: string;
     }
 
+    declare namespace AttachmentSection {
+        interface Attachment {
+            url: string;
+        }
+        interface AttachmentSectionBase {
+            claimed: Attachment[];
+            icon: string;
+            content: {
+                // TODO other types?
+                type: string | 'iframe';
+                url: string;
+                height: number;
+            };
+        }
+        interface AttachmentSectionSync extends AttachmentSectionBase {
+            id?: string;
+            title: string;
+        }
+        interface AttachmentSectionAsync extends AttachmentSectionBase {
+            id: string;
+            title: () => PromiseLike<string>
+        }
+        type AttachmentSection = AttachmentSectionSync | AttachmentSectionAsync;
+
+        interface Options extends BaseCallbackOptions {
+            entries: Attachment[];
+        }
+        interface Api {
+            'attachment-sections': PromiseCallback<AttachmentSection[], Options>;
+        }
+    }
+
     // TODO specify type
-    interface CapabilityHandlers {
-        'attachment-sections': any;
+    interface CapabilityHandlers extends
+        AttachmentSection.Api
+    {
         'attachment-thumbnail': any;
         'authorization-status': any;
         'board-buttons': any;
