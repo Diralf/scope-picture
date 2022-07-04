@@ -711,11 +711,38 @@ declare namespace Trello {
         }
     }
 
+    declare namespace AttachmentThumbnail {
+        interface Result {
+            title: string;
+            image?: {
+                url: string;
+                logo: boolean;
+            };
+            modified?: Date;
+            modifiedBy?: string;
+            created?: Date;
+            createdBy?: string;
+            initialize?: {
+                // TODO other types?
+                type: string | 'iframe';
+                url: string;
+            }
+        }
+
+        interface Options extends BaseCallbackOptions {
+            url: string;
+        }
+
+        interface Api {
+            'attachment-thumbnail': PromiseLike<Result, Options>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
-        AttachmentSection.Api
+        AttachmentSection.Api,
+        AttachmentThumbnail.Api
     {
-        'attachment-thumbnail': any;
         'authorization-status': any;
         'board-buttons': any;
         'card-back-section': any;
