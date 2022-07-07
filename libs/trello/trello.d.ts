@@ -749,11 +749,13 @@ declare namespace Trello {
     }
 
     declare namespace BoardButtons {
+        interface Icon {
+            dark: string;
+            light: string;
+        }
+
         interface BoardButton {
-            icon: {
-                dark: string;
-                light: string;
-            },
+            icon: Icon,
             text: string;
             condition: Conditions;
             callback?: BaseCallback;
@@ -766,14 +768,38 @@ declare namespace Trello {
         }
     }
 
+    declare namespace CardBackSection {
+        interface Content {
+            type: 'iframe';
+            url: string;
+            height: number;
+        }
+
+        interface Action {
+            text: string;
+            callback: BaseCallback;
+        }
+
+        interface Section {
+            title: string;
+            icon: string;
+            content: Content;
+            action: Action;
+        }
+
+        interface Api {
+            'card-back-section': PromiseCallback<Section>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
         AttachmentThumbnail.Api,
         AuthorizationStatus.Api,
-        BoardButtons.Api
+        BoardButtons.Api,
+        CardBackSection.Api
     {
-        'card-back-section': any;
         'card-badges': any;
         'card-buttons': BaseCallback<CardButton[]>;
         'card-detail-badges': any;
