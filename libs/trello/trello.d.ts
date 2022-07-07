@@ -676,15 +676,6 @@ declare namespace Trello {
         appName: string;
     };
 
-    interface CardButton {
-        icon: string;
-        text: string;
-        condition?: Conditions;
-        callback?: BaseCallback;
-        url?: string;
-        target?: string;
-    }
-
     declare namespace AttachmentSection {
         interface Attachment {
             url: string;
@@ -817,6 +808,21 @@ declare namespace Trello {
         }
     }
 
+    declare namespace CardButtons {
+        interface CardButton {
+            icon: string;
+            text: string;
+            condition?: Conditions;
+            callback?: BaseCallback;
+            url?: string;
+            target?: string;
+        }
+
+        interface Api {
+            'card-buttons': PromiseCallback<CardButton[]>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -824,9 +830,9 @@ declare namespace Trello {
         AuthorizationStatus.Api,
         BoardButtons.Api,
         CardBackSection.Api,
-        CardBadges.Api
+        CardBadges.Api,
+        CardButtons.Api
     {
-        'card-buttons': BaseCallback<CardButton[]>;
         'card-detail-badges': any;
         'card-from-url': any;
         'format-url': any;
