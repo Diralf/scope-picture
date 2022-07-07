@@ -12,7 +12,7 @@ declare class TrelloPowerUp {
     static Promise: Promise;
 }
 
-declare namespace Trello {
+export declare namespace Trello {
     declare namespace ErrorHandlers {
         interface Api {
             InvalidContext: (message: string) => void;
@@ -640,7 +640,7 @@ declare namespace Trello {
         locale: string;
     }
 
-    type BaseCallback = <Result = void, Options extends BaseCallbackOptions = BaseCallbackOptions>(t: TrelloApi, options: Options) => Result;
+    type BaseCallback<Result = void, Options extends BaseCallbackOptions = BaseCallbackOptions> = (t: TrelloApi, options: Options) => Result;
     type PromiseCallback<Result = void, Options extends BaseCallbackOptions = BaseCallbackOptions> = BaseCallback<Result | PromiseLike<Result>, Options>;
     type Conditions = 'admin' | 'edit' | 'readOnly' | 'signedIn' | 'signedOut' | 'always';
 
@@ -810,7 +810,7 @@ declare namespace Trello {
 
     declare namespace CardButtons {
         interface CardButton {
-            icon: string;
+            icon?: string;
             text: string;
             condition?: Conditions;
             callback?: BaseCallback;
@@ -823,6 +823,41 @@ declare namespace Trello {
         }
     }
 
+    declare namespace CardDetailBadges {
+        interface BaseCardBadge {
+            text?: string;
+            icon?: string | Icon;
+            title?: string;
+            color?: Color;
+            url?: string;
+            target?: string;
+        }
+
+        interface CallbackCardBadge extends BaseCardBadge {
+            callback?: BaseCallback;
+        }
+
+        interface UrlCardBadge extends BaseCardBadge {
+            url?: string;
+            target?: string;
+        }
+
+        interface DynamicResult {
+            refresh?: number;
+        }
+
+        type CardBadge = CallbackCardBadge | UrlCardBadge;
+        type DynamicCardBadgeResult = CardBadge & DynamicResult;
+
+        interface DynamicCardBadge {
+            dynamic: () => DynamicCardBadgeResult | PromiseLike<DynamicCardBadgeResult>;
+        }
+
+        interface Api {
+            'card-detail-badges': PromiseCallback<(DynamicCardBadge | CardBadge)[]>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -831,9 +866,9 @@ declare namespace Trello {
         BoardButtons.Api,
         CardBackSection.Api,
         CardBadges.Api,
-        CardButtons.Api
+        CardButtons.Api,
+        CardDetailBadges.Api
     {
-        'card-detail-badges': any;
         'card-from-url': any;
         'format-url': any;
         'list-actions': any;
