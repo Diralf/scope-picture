@@ -353,7 +353,7 @@ declare namespace Trello {
             url: string;
             args?: Record<string, string>;
             height: number;
-            accentColor: string;
+            accentColor: Color;
             callback?: BaseCallback;
             title?: string;
             actions?: Action[];
@@ -380,7 +380,7 @@ declare namespace Trello {
 
         interface ModalOptions {
             url: string;
-            accentColor: string;
+            accentColor: Color;
             height: number;
             fullscreen: boolean;
             callback?: BaseCallback;
@@ -506,7 +506,6 @@ declare namespace Trello {
      */
     declare namespace Utils {
         // TODO list the available colors
-        type Color = string;
         interface BrandColors {
             getHexString: (colorName: Color, weight?: number) => string;
             namedColorStringToHex: (color: Color | `${Color}#${string}`) => string;
@@ -645,6 +644,13 @@ declare namespace Trello {
     type PromiseCallback<Result = void, Options extends BaseCallbackOptions = BaseCallbackOptions> = BaseCallback<Result | PromiseLike<Result>, Options>;
     type Conditions = 'admin' | 'edit' | 'readOnly' | 'signedIn' | 'signedOut' | 'always';
 
+    interface Icon {
+        dark: string;
+        light: string;
+    }
+
+    type Color = 'blue' | 'green' | 'orange' | 'red' | 'yellow' | 'purple' | 'pink' | 'sky' | 'lime' | 'light-gray';
+
     type Capabilities = 'attachment-sections'
         | 'attachment-thumbnail'
         | 'authorization-status'
@@ -749,11 +755,6 @@ declare namespace Trello {
     }
 
     declare namespace BoardButtons {
-        interface Icon {
-            dark: string;
-            light: string;
-        }
-
         interface BoardButton {
             icon: Icon,
             text: string;
@@ -792,15 +793,39 @@ declare namespace Trello {
         }
     }
 
+    declare namespace CardBadges {
+        interface CardBadge {
+            text?: string;
+            icon?: string | Icon;
+            color?: Color;
+        }
+
+        interface DynamicCardBadgeResult extends CardBadge {
+            refresh?: number;
+        }
+
+        interface DynamicCardBadge {
+            dynamic: () => DynamicCardBadgeResult | PromiseLike<DynamicCardBadgeResult>;
+        }
+
+        interface Options extends BaseCallbackOptions {
+            attachments: AttachmentSection.Attachment[];
+        }
+
+        interface Api {
+            'card-badges': PromiseCallback<(DynamicCardBadge | CardBadge)[], Options>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
         AttachmentThumbnail.Api,
         AuthorizationStatus.Api,
         BoardButtons.Api,
-        CardBackSection.Api
+        CardBackSection.Api,
+        CardBadges.Api
     {
-        'card-badges': any;
         'card-buttons': BaseCallback<CardButton[]>;
         'card-detail-badges': any;
         'card-from-url': any;
