@@ -858,6 +858,16 @@ export declare namespace Trello {
         }
     }
 
+    declare namespace CardFromUrl {
+        interface Options extends BaseCallbackOptions {
+            url: string;
+        }
+
+        interface Api {
+            'card-from-url': PromiseCallback<DataAccessor.Card, Options>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -867,9 +877,9 @@ export declare namespace Trello {
         CardBackSection.Api,
         CardBadges.Api,
         CardButtons.Api,
-        CardDetailBadges.Api
+        CardDetailBadges.Api,
+        CardFromUrl.Api
     {
-        'card-from-url': any;
         'format-url': any;
         'list-actions': any;
         'list-sorters': any;
