@@ -868,6 +868,38 @@ export declare namespace Trello {
         }
     }
 
+    declare namespace FormatUrl {
+        interface Options extends BaseCallbackOptions {
+            url: string;
+        }
+
+        interface Action {
+            text: string;
+            callback: BaseCallback;
+        }
+
+        interface Image {
+            url: string;
+            size: 'contain' | 'original' | 'cover';
+        }
+
+        interface Format {
+            icon: Icon;
+            text: string;
+            subtext: string;
+            image: Image;
+            actions: Action[];
+            /**
+             * @deprecated
+             */
+            thumbnail: never;
+        }
+
+        interface Api {
+            'format-url': PromiseCallback<Format, Options>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -878,9 +910,9 @@ export declare namespace Trello {
         CardBadges.Api,
         CardButtons.Api,
         CardDetailBadges.Api,
-        CardFromUrl.Api
+        CardFromUrl.Api,
+        FormatUrl.Api
     {
-        'format-url': any;
         'list-actions': any;
         'list-sorters': any;
         'on-enable': any;
