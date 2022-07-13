@@ -951,6 +951,12 @@ export declare namespace Trello {
         }
     }
 
+    declare namespace RemoveData {
+        interface Api {
+            'remove-data': PromiseCallback;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -966,9 +972,9 @@ export declare namespace Trello {
         ListActions.Api,
         ListSorters.Api,
         OnEnable.Api,
-        OnDisable.Api
+        OnDisable.Api,
+        RemoveData.Api
     {
-        'remove-data': any;
         'save-attachment': any;
         'show-authorization': any;
         'show-settings': any;
