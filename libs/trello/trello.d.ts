@@ -971,6 +971,18 @@ export declare namespace Trello {
         }
     }
 
+    declare namespace ShowAuthorization {
+        interface Api {
+            'show-authorization': PromiseCallback;
+        }
+    }
+
+    declare namespace ShowSettings {
+        interface Api {
+            'show-settings': PromiseCallback;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -988,9 +1000,8 @@ export declare namespace Trello {
         OnEnable.Api,
         OnDisable.Api,
         RemoveData.Api,
-        SaveAttachment.Api
-    {
-        'show-authorization': any;
-        'show-settings': any;
-    }
+        SaveAttachment.Api,
+        ShowAuthorization.Api,
+        ShowSettings.Api
+    {}
 }
