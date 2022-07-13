@@ -913,6 +913,32 @@ export declare namespace Trello {
         }
     }
 
+    declare namespace ListSorters {
+        interface Options extends BaseCallbackOptions {
+            cards: DataAccessor.Card[];
+        }
+
+        interface SortResult {
+            sortedIds: string;
+        }
+
+        interface Action {
+            text: string;
+            callback: PromiseCallback<SortResult, Options>;
+        }
+
+        type AllowedActions =
+            [Action]
+            | [Action, Action]
+            | [Action, Action, Action]
+            | [Action, Action, Action, Action]
+            | [Action, Action, Action, Action, Action];
+
+        interface Api {
+            'list-sorters': PromiseCallback<AllowedActions>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -925,9 +951,9 @@ export declare namespace Trello {
         CardDetailBadges.Api,
         CardFromUrl.Api,
         FormatUrl.Api,
-        ListActions.Api
+        ListActions.Api,
+        ListSorters.Api
     {
-        'list-sorters': any;
         'on-enable': any;
         'on-disable': any;
         'remove-data': any;
