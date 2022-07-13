@@ -957,6 +957,20 @@ export declare namespace Trello {
         }
     }
 
+    declare namespace SaveAttachment {
+        interface Options {
+            attachment: AttachmentSection.Attachment;
+        }
+
+        interface Result {
+            callback: PromiseCallback<void, Options>;
+        }
+
+        interface Api {
+            'save-attachment': PromiseCallback<Result, Options>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -973,9 +987,9 @@ export declare namespace Trello {
         ListSorters.Api,
         OnEnable.Api,
         OnDisable.Api,
-        RemoveData.Api
+        RemoveData.Api,
+        SaveAttachment.Api
     {
-        'save-attachment': any;
         'show-authorization': any;
         'show-settings': any;
     }
