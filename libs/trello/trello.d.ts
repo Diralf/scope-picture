@@ -939,6 +939,18 @@ export declare namespace Trello {
         }
     }
 
+    declare namespace OnEnable {
+        interface Api {
+            'on-enable': PromiseCallback;
+        }
+    }
+
+    declare namespace OnDisable {
+        interface Api {
+            'on-disable': PromiseCallback;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -952,10 +964,10 @@ export declare namespace Trello {
         CardFromUrl.Api,
         FormatUrl.Api,
         ListActions.Api,
-        ListSorters.Api
+        ListSorters.Api,
+        OnEnable.Api,
+        OnDisable.Api
     {
-        'on-enable': any;
-        'on-disable': any;
         'remove-data': any;
         'save-attachment': any;
         'show-authorization': any;
