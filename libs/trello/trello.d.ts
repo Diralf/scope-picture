@@ -900,6 +900,19 @@ export declare namespace Trello {
         }
     }
 
+    declare namespace ListActions {
+        interface Action {
+            text: string;
+            callback: PromiseCallback;
+        }
+
+        type AllowedActions = [Action] | [Action, Action] | [Action, Action, Action];
+
+        interface Api {
+            'list-actions': PromiseCallback<AllowedActions>;
+        }
+    }
+
     // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
@@ -911,9 +924,9 @@ export declare namespace Trello {
         CardButtons.Api,
         CardDetailBadges.Api,
         CardFromUrl.Api,
-        FormatUrl.Api
+        FormatUrl.Api,
+        ListActions.Api
     {
-        'list-actions': any;
         'list-sorters': any;
         'on-enable': any;
         'on-disable': any;
