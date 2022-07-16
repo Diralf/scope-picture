@@ -1,6 +1,4 @@
-import {TrelloPowerUp} from "../libs/trello/trello";
-
-TrelloPowerUp.initialize({
+window.TrelloPowerUp.initialize({
     'card-buttons': (t, options) => {
         console.log('Power-up is working', {t, options});
         return [{

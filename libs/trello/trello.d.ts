@@ -5,11 +5,15 @@ declare global {
 }
 
 declare class TrelloPowerUp {
-    static initialize(handlers: Partial<Trello.CapabilityHandlers>, options?: Trello.InitializeOptions): void;
-    static iframe(options?: Trello.InitializeOptions): Trello.TrelloIframeApi;
-    static restApiError: Trello.RestApiClient.RestApiError;
-    static utils: Trello.Utils.Static;
-    static Promise: Promise;
+    version: string;
+    // TODO define types
+    CallbackCache: any;
+    PostMessageIO: any;
+    Promise: Promise;
+    restApiError: Trello.RestApiClient.RestApiError;
+    utils: Trello.Utils.Static;
+    initialize(handlers: Partial<Trello.CapabilityHandlers>, options?: Trello.InitializeOptions): void;
+    iframe(options?: Trello.InitializeOptions): Trello.TrelloIframeApi;
 }
 
 export declare namespace Trello {
@@ -518,6 +522,20 @@ export declare namespace Trello {
         interface Static {
             colors: BrandColors;
             relativeUrl: (url: string) => string;
+
+            // TODO define types
+            convert: {
+                bytesToHexString,
+                hexStringToUint8Array
+            },
+            crypto: simpleCrypto,
+            initLocalizer: initi18n,
+            i18n: {
+                localizeKey,
+                localizeKeys,
+                localizeNode
+            },
+            makeErrorEnum,
         }
     }
 
