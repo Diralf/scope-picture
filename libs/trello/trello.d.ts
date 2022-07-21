@@ -30,7 +30,7 @@ export declare namespace Trello {
         }
 
         interface Api {
-            // TODO define types
+            // LOW TODO define types
             bufferSize: number;
             handlers: any;
             helpfulStacks: any;
@@ -66,7 +66,7 @@ export declare namespace Trello {
             ...requestedFields: Array<keyof Options> | ['all']
         ) => PromiseLike<Result>;
 
-        // TODO fill the types
+        // HIGH TODO fill the types
         interface Board {
             id;
             name;
@@ -114,7 +114,7 @@ export declare namespace Trello {
      */
     declare namespace GetSet {
         type ScopeEntity = 'board' | 'card' | 'member' | 'organization';
-        // TODO verify this type
+        // MID TODO verify this type
         type Id = `${number}${string}`;
         type Visibility = 'shared' | 'private';
 
@@ -208,7 +208,7 @@ export declare namespace Trello {
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/client-library/localization/
      */
     declare namespace Localization {
-        // TODO finish localization by URl above
+        // MID TODO finish localization by URl above
         interface Api {
             localizeKey: any;
             localizeKeys: any;
@@ -445,7 +445,7 @@ export declare namespace Trello {
 
     declare namespace Popup {
         declare namespace PopupList {
-            // TODO check for "url" field
+            // MID TODO check for "url" field
             interface Item {
                 text: string;
                 callback?: BaseCallback;
@@ -542,7 +542,6 @@ export declare namespace Trello {
      * docs: https://developer.atlassian.com/cloud/trello/power-ups/utils-and-helpers/
      */
     declare namespace Utils {
-        // TODO list the available colors
         interface BrandColors {
             getHexString: (colorName: Color, weight?: number) => string;
             namedColorStringToHex: (color: Color | `${Color}#${string}`) => string;
@@ -556,7 +555,7 @@ export declare namespace Trello {
             colors: BrandColors;
             relativeUrl: (url: string) => string;
 
-            // TODO define types
+            // HIGH TODO define types
             convert: {
                 bytesToHexString,
                 hexStringToUint8Array
@@ -572,7 +571,7 @@ export declare namespace Trello {
         }
     }
 
-    // TODO check in runtime
+    // MID TODO check in runtime
     declare namespace Confetti {
         interface Options {
             clientX: number;
@@ -721,7 +720,7 @@ export declare namespace Trello {
         | 'show-authorization'
         | 'show-settings';
 
-    // TODO specify type
+    // LOW TODO specify type
     type InitializeOptions = {
         appKey: string;
         appName: string;
@@ -735,7 +734,7 @@ export declare namespace Trello {
             claimed: Attachment[];
             icon: string;
             content: {
-                // TODO other types?
+                // LOW TODO other types?
                 type: string | 'iframe';
                 url: string;
                 height: number;
@@ -771,7 +770,7 @@ export declare namespace Trello {
             created?: Date;
             createdBy?: string;
             initialize?: {
-                // TODO other types?
+                // LOW TODO other types?
                 type: string | 'iframe';
                 url: string;
             }
@@ -1034,7 +1033,6 @@ export declare namespace Trello {
         }
     }
 
-    // TODO specify type
     interface CapabilityHandlers extends
         AttachmentSection.Api,
         AttachmentThumbnail.Api,
