@@ -7,7 +7,7 @@ declare global {
 declare class TrelloPowerUp {
     version: string;
     // TODO define types
-    CallbackCache: any;
+    CallbackCache: Trello.CallbackCache;
     PostMessageIO: any;
     Promise: Promise;
     restApiError: Trello.RestApiClient.RestApiError;
@@ -17,6 +17,12 @@ declare class TrelloPowerUp {
 }
 
 export declare namespace Trello {
+    interface CallbackCache {
+        callback: (t: TrelloApi, options: BaseCallbackOptions, serializeResult: Function) => PromiseLike<unknown>;
+        serialize: (fx: Function) => { _callback: string };
+        reset: () => void;
+    }
+
     declare namespace ErrorHandlers {
         interface Api {
             InvalidContext: (message: string) => void;
