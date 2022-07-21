@@ -81,19 +81,46 @@ export declare namespace Trello {
         }
 
         interface List {
-            id, name, cards;
+            id,
+            name,
+            cards;
         }
 
         interface Card {
-            id, name, desc, due, dueComplete, closed, cover, attachments, members, labels, url, shortLink, idList, idShort, dateLastActivity, badges, customFieldItems, coordinates, address, locationName, pos;
+            id,
+            name,
+            desc,
+            due,
+            dueComplete,
+            closed,
+            cover,
+            attachments,
+            members,
+            labels,
+            url,
+            shortLink,
+            idList,
+            idShort,
+            dateLastActivity, 
+            badges,
+            customFieldItems,
+            coordinates,
+            address,
+            locationName,
+            pos;
         }
 
         interface Member {
-            id, fullName, username, avatar: any | null, initials;
+            id,
+            fullName,
+            username,
+            avatar: any | null,
+            initials;
         }
 
         interface Organization {
-            id, name;
+            id,
+            name;
         }
 
         interface Api {
