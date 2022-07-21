@@ -6,10 +6,9 @@ declare global {
 
 declare class TrelloPowerUp {
     version: string;
-    // TODO define types
     CallbackCache: Trello.CallbackCache;
     PostMessageIO: Trello.PostMessageIO.Api;
-    Promise: Promise;
+    Promise: PromiseLike<unknown>;
     restApiError: Trello.RestApiClient.RestApiError;
     utils: Trello.Utils.Static;
     initialize(handlers: Partial<Trello.CapabilityHandlers>, options?: Trello.InitializeOptions): void;
