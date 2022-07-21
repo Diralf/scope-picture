@@ -87,27 +87,61 @@ export declare namespace Trello {
         }
 
         interface Card {
-            id,
-            name,
-            desc,
-            due,
-            dueComplete,
-            closed,
-            cover,
-            attachments,
-            members,
-            labels,
-            url,
-            shortLink,
-            idList,
-            idShort,
-            dateLastActivity, 
-            badges,
-            customFieldItems,
-            coordinates,
-            address,
-            locationName,
-            pos;
+            id: GetSet.Id,
+            name: string,
+            desc: string,
+            due: string | null,
+            dueComplete: boolean,
+            closed: boolean,
+            // HIGH TODO move to separate namespace
+            cover: {
+                brightness: 'light' | 'dark';
+                color: Color;
+                idAttachment: string | null;
+                idPlugin: string | null;
+                idUploadedBackground: string | null;
+                size: 'full' | 'normal';
+            },
+            attachments: AttachmentSection.Attachment[],
+            members: Member[],
+            // HIGH TODO move to separate namespace
+            labels: {
+                id: GetSet.Id;
+                name: string;
+                color: Color;
+            }[],
+            url: string,
+            shortLink: string,
+            idList: GetSet.Id,
+            idShort: number,
+            dateLastActivity: string,
+            // HIGH TODO move to separate namespace
+            badges: {
+                attachments: number;
+                attachmentsByType: { board: number; card: number; };
+                checkItems: number;
+                checkItemsChecked: number;
+                checkItemsEarliestDue: string | null
+                comments: number
+                description: boolean
+                due: string
+                dueComplete: boolean
+                fogbugz: string
+                location: boolean
+                // LOW TODO check this type
+                start: string | null
+                subscribed: boolean
+                viewingMemberVoted: boolean
+                votes: number
+            },
+            customFieldItems: unknown[],
+            // MID TODO define type
+            coordinates: unknown | null,
+            // MID TODO define type
+            address: unknown | null,
+            // MID TODO define type
+            locationName: unknown | null,
+            pos: number;
         }
 
         interface Member {
