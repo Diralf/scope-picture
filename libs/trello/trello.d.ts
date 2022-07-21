@@ -8,7 +8,7 @@ declare class TrelloPowerUp {
     version: string;
     // TODO define types
     CallbackCache: Trello.CallbackCache;
-    PostMessageIO: any;
+    PostMessageIO: Trello.PostMessageIO.Api;
     Promise: Promise;
     restApiError: Trello.RestApiClient.RestApiError;
     utils: Trello.Utils.Static;
@@ -21,6 +21,34 @@ export declare namespace Trello {
         callback: (t: TrelloApi, options: BaseCallbackOptions, serializeResult: Function) => PromiseLike<unknown>;
         serialize: (fx: Function) => { _callback: string };
         reset: () => void;
+    }
+
+    namespace PostMessageIO {
+        interface NewError {
+            message: string;
+            name: string;
+            stack: string;
+        }
+
+        interface Api {
+            // TODO define types
+            bufferSize: number;
+            handlers: any;
+            helpfulStacks: any;
+            hostHandlers: any;
+            local: any;
+            noisy: boolean;
+            Promise: any;
+            remote: any;
+            secret: string;
+            Sentry: any;
+            strict: boolean;
+            targetOrigin: string;
+            PluginDisabled: NewError;
+            InvalidContext: NewError;
+            NotHandled: NewError;
+            UnsupportedCommand: NewError;
+        }
     }
 
     declare namespace ErrorHandlers {
