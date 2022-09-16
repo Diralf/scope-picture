@@ -75,13 +75,13 @@ export declare namespace Trello {
             members: Member[];
             dateLastActivity: string;
             idOrganization: string;
-            customFields;
+            customFields: unknown[];
             labels: {
                 id: GetSet.Id;
                 name: string;
                 color: Color;
             }[];
-            memberships;
+            memberships: Membership[];
         }
 
         interface List {
@@ -159,6 +159,14 @@ export declare namespace Trello {
         interface Organization {
             id,
             name;
+        }
+
+        interface Membership {
+            deactivated: boolean;
+            id: GetSet.Id;
+            idMember: GetSet.Id;
+            memberType: 'admin'; // TODO other types
+            unconfirmed: boolean;
         }
 
         interface Api {
