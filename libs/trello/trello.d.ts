@@ -68,15 +68,19 @@ export declare namespace Trello {
 
         // HIGH TODO fill the types
         interface Board {
-            id;
-            name;
-            url;
-            shortLink;
-            members;
-            dateLastActivity;
-            idOrganization;
+            id: GetSet.Id;
+            name: string;
+            url: string;
+            shortLink: string;
+            members: Member[];
+            dateLastActivity: string;
+            idOrganization: string;
             customFields;
-            labels;
+            labels: {
+                id: GetSet.Id;
+                name: string;
+                color: Color;
+            }[];
             memberships;
         }
 
