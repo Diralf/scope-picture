@@ -1,8 +1,11 @@
 "use strict";
 window.TrelloPowerUp.initialize({
     'card-buttons': (t, options) => {
-        const card = t.card('all');
-        console.log('Power-up is working', { t, options, card });
+        const getset = {
+            card: t.card('all'),
+            board: t.board('all'),
+        };
+        console.log('Power-up is working', { t, options, ...getset });
         return [{
                 text: 'Hey, test button',
             }];
